@@ -3,7 +3,9 @@ package ru.netology.manager;
 import ru.netology.domain.PurchaseItem;
 
 public class PurchaseItemManager {
+
     private PurchaseItem[] items = new PurchaseItem[0];
+    private int numberOfMovies = 10;
 
     public void add(PurchaseItem item) {
         // создаём новый массив размером на единицу больше
@@ -22,7 +24,7 @@ public class PurchaseItemManager {
     }
 
     public PurchaseItem[] getAll() {
-        PurchaseItem[] result = new PurchaseItem[items.length];
+        PurchaseItem[] result = new PurchaseItem[Math.min(items.length, numberOfMovies)];
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
         for (int i = 0; i < result.length; i++) {
@@ -32,6 +34,7 @@ public class PurchaseItemManager {
         return result;
     }
 
+    /*
     // наивная реализация
     public void removeById(int id) {
         int length = items.length - 1;
@@ -45,5 +48,14 @@ public class PurchaseItemManager {
         }
         // меняем наши элементы
         items = tmp;
+    }
+    */
+
+    public int getNumberOfMovies() {
+        return numberOfMovies;
+    }
+
+    public void setNumberOfMovies(int numberOfMovies) {
+        this.numberOfMovies = numberOfMovies;
     }
 }
