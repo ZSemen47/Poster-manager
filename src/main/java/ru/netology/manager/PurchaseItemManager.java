@@ -1,28 +1,24 @@
 package ru.netology.manager;
 
 import ru.netology.domain.PurchaseItem;
+import ru.netology.repository.PurchaseItemRepository;
 
 public class PurchaseItemManager {
-    private PurchaseItem[] items = new PurchaseItem[0];
+
+    private PurchaseItemRepository repository;
+    private int numberOfMovies = 10;
+
+    public PurchaseItemManager(PurchaseItemRepository repository) {
+        this.repository = repository;
+    }
 
     public void add(PurchaseItem item) {
-        // создаём новый массив размером на единицу больше
-        int length = items.length + 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
-        // itar + tab
-        // копируем поэлементно
-        // for (int i = 0; i < items.length; i++) {
-        //   tmp[i] = items[i];
-        // }
-        System.arraycopy(items, 0, tmp, 0, items.length);
-        // кладём последним наш элемент
-        int lastIndex = tmp.length - 1;
-        tmp[lastIndex] = item;
-        items = tmp;
+        repository.save(item);
     }
 
     public PurchaseItem[] getAll() {
-        PurchaseItem[] result = new PurchaseItem[items.length];
+        PurchaseItem[] items = repository.findAll();
+        PurchaseItem[] result = new PurchaseItem[Math.min(items.length, numberOfMovies)];
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
         for (int i = 0; i < result.length; i++) {
@@ -32,18 +28,24 @@ public class PurchaseItemManager {
         return result;
     }
 
-    // наивная реализация
+    public void findById(int id) {
+        repository.findById(id);
+    }
+
+
     public void removeById(int id) {
-        int length = items.length - 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
-        int index = 0;
-        for (PurchaseItem item : items) {
-            if (item.getId() != id) {
-                tmp[index] = item;
-                index++;
-            }
-        }
-        // меняем наши элементы
-        items = tmp;
+        repository.removeById(id);
+    }
+
+    public void removeAll() {
+        repository.removeAll();
+    }
+
+    public int getNumberOfMovies() {
+        return numberOfMovies;
+    }
+
+    public void setNumberOfMovies(int numberOfMovies) {
+        this.numberOfMovies = numberOfMovies;
     }
 }
