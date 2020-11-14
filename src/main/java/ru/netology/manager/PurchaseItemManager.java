@@ -6,10 +6,17 @@ import ru.netology.repository.PurchaseItemRepository;
 public class PurchaseItemManager {
 
     private PurchaseItemRepository repository;
-    private int numberOfMovies = 10;
+    private int numberOfMovies;
+
+    public PurchaseItemManager() {
+    }
 
     public PurchaseItemManager(PurchaseItemRepository repository) {
         this.repository = repository;
+    }
+
+    public PurchaseItemManager(int numberOfMovies) {
+        this.numberOfMovies = numberOfMovies;
     }
 
     public void add(PurchaseItem item) {
@@ -28,10 +35,9 @@ public class PurchaseItemManager {
         return result;
     }
 
-    public void findById(int id) {
-        repository.findById(id);
+    public PurchaseItem[] findById(int id) {
+        return repository.findById(id);
     }
-
 
     public void removeById(int id) {
         repository.removeById(id);

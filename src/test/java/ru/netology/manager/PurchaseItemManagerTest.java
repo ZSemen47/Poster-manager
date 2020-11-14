@@ -10,6 +10,7 @@ import ru.netology.domain.PurchaseItem;
 import ru.netology.repository.PurchaseItemRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -20,7 +21,7 @@ public class PurchaseItemManagerTest {
     private PurchaseItemRepository repository;
 
     @InjectMocks
-    PurchaseItemManager manager;
+    PurchaseItemManager manager = new PurchaseItemManager(10);
 
     PurchaseItem first = new PurchaseItem(1, 1, "first", 100, 1);
     PurchaseItem second = new PurchaseItem(2, 2, "second", 100, 1);
@@ -49,6 +50,8 @@ public class PurchaseItemManagerTest {
 
     @Test
     public void addLessThenTenFilms() {
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        doReturn(returned).when(repository).findAll();
         manager.getAll();
         PurchaseItem[] actual = manager.getAll();
         PurchaseItem[] expected = new PurchaseItem[]{ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
@@ -58,6 +61,8 @@ public class PurchaseItemManagerTest {
     @Test
     public void addTenFilms() {
         manager.add(tenth);
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
+        doReturn(returned).when(repository).findAll();
         manager.getAll();
         PurchaseItem[] actual = manager.getAll();
         PurchaseItem[] expected = new PurchaseItem[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
@@ -68,6 +73,8 @@ public class PurchaseItemManagerTest {
     public void addMoreThenTenFilms() {
         manager.add(tenth);
         manager.add(eleventh);
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh};
+        doReturn(returned).when(repository).findAll();
         manager.getAll();
         PurchaseItem[] actual = manager.getAll();
         PurchaseItem[] expected = new PurchaseItem[]{eleventh, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
@@ -77,6 +84,8 @@ public class PurchaseItemManagerTest {
     @Test
     public void addFiveFilmsToTape() {
         manager.setNumberOfMovies(5);
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        doReturn(returned).when(repository).findAll();
         manager.getAll();
         PurchaseItem[] actual = manager.getAll();
         PurchaseItem[] expected = new PurchaseItem[]{ninth, eighth, seventh, sixth, fifth};
@@ -86,10 +95,22 @@ public class PurchaseItemManagerTest {
     @Test
     public void addZeroFilmsToTape() {
         manager.setNumberOfMovies(0);
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        doReturn(returned).when(repository).findAll();
         manager.getAll();
         PurchaseItem[] actual = manager.getAll();
         PurchaseItem[] expected = new PurchaseItem[]{};
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void findById() {
+        int id = 3;
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        doReturn(returned).when(repository).findById(id);
+        manager.findById(id);
+        PurchaseItem[] actual = manager.findById(id);
+        PurchaseItem[] expected = new PurchaseItem[]{third};
+        assertArrayEquals(expected, actual);
+    }
 }

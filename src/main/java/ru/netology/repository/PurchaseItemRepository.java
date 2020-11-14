@@ -18,7 +18,7 @@ public class PurchaseItemRepository {
         return items;
     }
 
-    public void findById(int id) {
+    public PurchaseItem[] findById(int id) {
         PurchaseItem[] tmp = new PurchaseItem[1];
         int index = 0;
         for (PurchaseItem item : items) {
@@ -28,6 +28,7 @@ public class PurchaseItemRepository {
             }
         }
         items = tmp;
+        return items;
     }
 
     public void removeById(int id) {
