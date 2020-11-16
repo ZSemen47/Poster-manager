@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.netology</groupId>
-    <artifactId>Poster manager</artifactId>
+    <artifactId>Poster-manager</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -75,6 +75,11 @@
                 <configuration>
                     <rules>
                         <rule>
+                            <element>CLASS</element>
+                            <includes>
+                                <include>ru/manager</include>
+                                <include>ru/repository</include>
+                            </includes>
                             <limits>
                                 <limit>
                                     <counter>BRANCH</counter>

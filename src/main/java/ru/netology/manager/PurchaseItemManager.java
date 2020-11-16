@@ -39,12 +39,12 @@ public class PurchaseItemManager {
         return repository.findById(id);
     }
 
-    public void removeById(int id) {
-        repository.removeById(id);
+    public PurchaseItem[] removeById(int id) {
+        return repository.removeById(id);
     }
 
-    public void removeAll() {
-        repository.removeAll();
+    public PurchaseItem[] removeAll() {
+        return repository.removeAll();
     }
 
     public int getNumberOfMovies() {

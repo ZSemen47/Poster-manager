@@ -5,6 +5,10 @@ import ru.netology.domain.PurchaseItem;
 public class PurchaseItemRepository {
     private PurchaseItem[] items = new PurchaseItem[0];
 
+    public PurchaseItemRepository() {
+        this.items = items;
+    }
+
     public void save(PurchaseItem item) {
         int length = items.length + 1;
         PurchaseItem[] tmp = new PurchaseItem[length];
@@ -22,7 +26,7 @@ public class PurchaseItemRepository {
         PurchaseItem[] tmp = new PurchaseItem[1];
         int index = 0;
         for (PurchaseItem item : items) {
-            if (item.getId() != id) {
+            if (item.getId() == id) {
                 tmp[index] = item;
                 index++;
             }
@@ -31,7 +35,7 @@ public class PurchaseItemRepository {
         return items;
     }
 
-    public void removeById(int id) {
+    public PurchaseItem[] removeById(int id) {
         int length = items.length - 1;
         PurchaseItem[] tmp = new PurchaseItem[length];
         int index = 0;
@@ -42,10 +46,12 @@ public class PurchaseItemRepository {
             }
         }
         items = tmp;
+        return items;
     }
 
-    public void removeAll() {
+    public PurchaseItem[] removeAll() {
         PurchaseItem[] empty = new PurchaseItem[0];
         items = empty;
+        return items;
     }
 }

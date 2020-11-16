@@ -103,14 +103,43 @@ public class PurchaseItemManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test void findAll() {
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        doReturn(returned).when(repository).findAll();
+        PurchaseItem[] actual = repository.findAll();
+        PurchaseItem[] expected = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        assertArrayEquals(expected, actual);
+        verify(repository).findAll();
+    }
+
     @Test
     public void findById() {
         int id = 3;
-        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+        PurchaseItem[] returned = new PurchaseItem[]{third};
         doReturn(returned).when(repository).findById(id);
-        manager.findById(id);
         PurchaseItem[] actual = manager.findById(id);
         PurchaseItem[] expected = new PurchaseItem[]{third};
         assertArrayEquals(expected, actual);
+        verify(repository).findById(id);
+    }
+    @Test
+    public void removeById() {
+        int id = 9;
+        PurchaseItem[] returned = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth};
+        doReturn(returned).when(repository).removeById(id);
+        PurchaseItem[] actual = manager.removeById(id);
+        PurchaseItem[] expected = new PurchaseItem[]{first, second, third, fourth, fifth, sixth, seventh, eighth};
+        assertArrayEquals(expected, actual);
+        verify(repository).removeById(id);
+    }
+
+    @Test
+    public void removeAll() {
+        PurchaseItem[] returned = new PurchaseItem[]{};
+        doReturn(returned).when(repository).removeAll();
+        PurchaseItem[] actual = repository.removeAll();
+        PurchaseItem[] expected = {};
+        assertArrayEquals(actual, expected);
+        verify(repository).removeAll();
     }
 }
