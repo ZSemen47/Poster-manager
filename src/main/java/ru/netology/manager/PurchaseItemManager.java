@@ -11,11 +11,8 @@ public class PurchaseItemManager {
     public PurchaseItemManager() {
     }
 
-    public PurchaseItemManager(PurchaseItemRepository repository) {
+    public PurchaseItemManager(PurchaseItemRepository repository, int numberOfMovies) {
         this.repository = repository;
-    }
-
-    public PurchaseItemManager(int numberOfMovies) {
         this.numberOfMovies = numberOfMovies;
     }
 

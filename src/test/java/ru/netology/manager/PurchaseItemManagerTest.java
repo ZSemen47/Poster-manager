@@ -21,7 +21,7 @@ public class PurchaseItemManagerTest {
     private PurchaseItemRepository repository;
 
     @InjectMocks
-    PurchaseItemManager manager = new PurchaseItemManager(10);
+    PurchaseItemManager manager = new PurchaseItemManager(repository, 10);
 
     PurchaseItem first = new PurchaseItem(1, 1, "first", 100, 1);
     PurchaseItem second = new PurchaseItem(2, 2, "second", 100, 1);
