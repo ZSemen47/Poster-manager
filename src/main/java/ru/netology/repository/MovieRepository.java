@@ -1,31 +1,31 @@
 package ru.netology.repository;
 
-import ru.netology.domain.PurchaseItem;
+import ru.netology.domain.Movie;
 
-public class PurchaseItemRepository {
-    private PurchaseItem[] items = new PurchaseItem[0];
+public class MovieRepository {
+    private Movie[] items = new Movie[0];
 
-    public PurchaseItemRepository() {
+    public MovieRepository() {
         this.items = items;
     }
 
-    public void save(PurchaseItem item) {
+    public void save(Movie item) {
         int length = items.length + 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
+        Movie[] tmp = new Movie[length];
         System.arraycopy(items, 0, tmp, 0, items.length);
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = item;
         items = tmp;
     }
 
-    public PurchaseItem[] findAll() {
+    public Movie[] findAll() {
         return items;
     }
 
-    public PurchaseItem[] findById(int id) {
-        PurchaseItem[] tmp = new PurchaseItem[1];
+    public Movie[] findById(int id) {
+        Movie[] tmp = new Movie[1];
         int index = 0;
-        for (PurchaseItem item : items) {
+        for (Movie item : items) {
             if (item.getId() == id) {
                 tmp[index] = item;
                 index++;
@@ -35,11 +35,11 @@ public class PurchaseItemRepository {
         return items;
     }
 
-    public PurchaseItem[] removeById(int id) {
+    public Movie[] removeById(int id) {
         int length = items.length - 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
+        Movie[] tmp = new Movie[length];
         int index = 0;
-        for (PurchaseItem item : items) {
+        for (Movie item : items) {
             if (item.getId() != id) {
                 tmp[index] = item;
                 index++;
@@ -49,8 +49,8 @@ public class PurchaseItemRepository {
         return items;
     }
 
-    public PurchaseItem[] removeAll() {
-        PurchaseItem[] empty = new PurchaseItem[0];
+    public Movie[] removeAll() {
+        Movie[] empty = new Movie[0];
         items = empty;
         return items;
     }
