@@ -14,11 +14,6 @@ public class MovieManager {
         this.numberOfMovies = numberOfMovies;
     }
 
-    public MovieManager(Movie[] items, int numberOfMovies) {
-        this.items = items;
-        this.numberOfMovies = numberOfMovies;
-    }
-
     public int getNumberOfMovies() {
         return numberOfMovies;
     }
@@ -37,13 +32,8 @@ public class MovieManager {
         items = tmp;
     }
 
-    public Movie[] findAll() {
-        return items;
-    }
-
     public Movie[] getLastAdded() {
-        Movie[] items = findAll();
-        Movie[] result = new Movie[numberOfMovies];
+        Movie[] result = new Movie[Math.min(items.length, numberOfMovies)];
         for (int i = 0; i < result.length; i++) {
             int index = items.length - i - 1;
             result[i] = items[index];

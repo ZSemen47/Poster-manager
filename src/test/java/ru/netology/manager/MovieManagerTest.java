@@ -7,7 +7,7 @@ import ru.netology.domain.Movie;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MovieManagerTest {
-    MovieManager manager = new MovieManager(3);
+    MovieManager manager = new MovieManager();
     Movie first = new Movie(1, 1, "first", 100, 1);
     Movie second = new Movie(2, 2, "second", 100, 1);
     Movie third = new Movie(3, 3, "third", 100, 1);
@@ -21,7 +21,6 @@ class MovieManagerTest {
     Movie eleventh = new Movie(11, 11, "eleven", 100, 1);
 
     @BeforeEach
-    @Test
     public void addFilmToTape() {
         manager.add(first);
         manager.add(second);
@@ -37,16 +36,36 @@ class MovieManagerTest {
 
     @Test
     public void checkFilms() {
-        Movie[] expected = manager.findAll();
-        Movie[] actual = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
+        Movie[] expected = manager.getLastAdded();
+        Movie[] actual = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void getLastAddedFilms() {
+    public void getWhenLessThanNumberOfMovies() {
+        MovieManager manager = new MovieManager(4);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        Movie[] actual = manager.getLastAdded();
+        Movie[] expected = new Movie[]{ninth, eighth, seventh};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void getWhenOneMovieAdded() {
+        MovieManager manager = new MovieManager(10);
+        manager.add(first);
+        Movie[] actual = manager.getLastAdded();
+        Movie[] expected = new Movie[]{first};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void getWhenMoreThanNumberOfMovies() {
         manager.add(eleventh);
         Movie[] actual = manager.getLastAdded();
-        Movie[] expected = new Movie[]{eleventh, tenth, ninth};
+        Movie[] expected = new Movie[]{eleventh, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
         assertArrayEquals(expected, actual);
     }
 }
