@@ -46,32 +46,24 @@ public class MovieManagerTest {
         manager.add(seventh);
         manager.add(eighth);
         manager.add(ninth);
-    }
-
-    @Test
-    public void addLessThenTenFilms() {
-        manager.setNumberOfMovies(9);
-        Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
-        doReturn(returned).when(repository).findAll();
-        manager.getAll();
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void addTenFilms() {
         manager.add(tenth);
-        Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
+    }
+
+    @Test
+    public void getWhenLessThanNumberOfMovies(){
+        MovieManager manager = new MovieManager(repository, 10);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        Movie[] returned = new Movie[]{first, second, third};
         doReturn(returned).when(repository).findAll();
-        manager.getAll();
         Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        Movie[] expected = new Movie[]{third, second, first};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void addMoreThenTenFilms() {
+    public void getWhenMoreThanNumberOfMovies() {
         manager.add(tenth);
         manager.add(eleventh);
         Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh};
@@ -83,22 +75,10 @@ public class MovieManagerTest {
     }
 
     @Test
-    public void addFiveFilmsToTape() {
-        manager.setNumberOfMovies(5);
-        Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
+    public void getWhenZeroFilmsAdded() {
+        MovieManager manager = new MovieManager(repository,10);
+        Movie[] returned = new Movie[]{};
         doReturn(returned).when(repository).findAll();
-        manager.getAll();
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{ninth, eighth, seventh, sixth, fifth};
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void addZeroFilmsToTape() {
-        manager.setNumberOfMovies(0);
-        Movie[] returned = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth};
-        doReturn(returned).when(repository).findAll();
-        manager.getAll();
         Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[]{};
         assertArrayEquals(expected, actual);

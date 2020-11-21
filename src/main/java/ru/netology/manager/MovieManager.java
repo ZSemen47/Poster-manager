@@ -30,9 +30,7 @@ public class MovieManager {
 
     public Movie[] getAll() {
         Movie[] items = repository.findAll();
-        Movie[] result = new Movie[numberOfMovies];
-        // перебираем массив в прямом порядке
-        // но кладём в результаты в обратном
+        Movie[] result = new Movie[Math.min(items.length, numberOfMovies)];
         for (int i = 0; i < result.length; i++) {
             int index = items.length - i - 1;
             result[i] = items[index];
