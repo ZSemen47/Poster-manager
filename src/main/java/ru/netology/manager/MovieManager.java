@@ -32,7 +32,12 @@ public class MovieManager {
         items = tmp;
     }
 
-    public Movie[] getAll() {
+    public Movie[] findAll() {
+        return items;
+    }
+
+    public Movie[] getLastAdded() {
+        Movie[] items = findAll();
         Movie[] result = new Movie[numberOfMovies];
         for (int i = 0; i < result.length; i++) {
             int index = items.length - i - 1;
