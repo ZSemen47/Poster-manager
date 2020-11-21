@@ -14,6 +14,11 @@ public class MovieManager {
         this.numberOfMovies = numberOfMovies;
     }
 
+    public MovieManager(Movie[] items, int numberOfMovies) {
+        this.items = items;
+        this.numberOfMovies = numberOfMovies;
+    }
+
     public int getNumberOfMovies() {
         return numberOfMovies;
     }
